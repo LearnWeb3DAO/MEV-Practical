@@ -10,8 +10,10 @@ async function main() {
   const FakeNFT = await fakeNFT.deploy();
   await FakeNFT.deployed();
   console.log(FakeNFT.address);
-  const provider = new ethers.providers.getDefaultProvider("goerli");
-
+  const provider = new ethers.providers.WebSocketProvider(
+    process.env.ALCHEMY_WEBSOCKETT_URL,
+    "goerli"
+  );
   const signer = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
   const flashbotsProvider = await FlashbotsBundleProvider.create(
     provider,
@@ -19,11 +21,9 @@ async function main() {
     "https://relay-goerli.flashbots.net",
     "goerli"
   );
-  console.log(await provider.getBlockNumber());
-  const interface = FakeNFT.interface;
-  while (true) {
-    const blockNumber = (await provider.getBlockNumber()) + 1;
-    await flashbotsProvider.sendBundle(
+  provider.on("block", (blockNumber) => {
+    console.log(blockNumber);
+    flashbotsProvider.sendBundle(
       [
         {
           transaction: {
@@ -31,21 +31,19 @@ async function main() {
             type: 2,
             value: ethers.utils.parseEther("0.01"),
             to: FakeNFT.address,
-            data: interface.getSighash("mint"),
+            data: "0x1249c58b",
             maxFeePerGas: BigNumber.from(10).pow(9).mul(3),
             maxPriorityFeePerGas: BigNumber.from(10).pow(9).mul(2),
           },
           signer: signer,
         },
       ],
-      blockNumber
+      blockNumber + 1
     );
-  }
+  });
+
+  const interface = FakeNFT.interface;
+  const blockNumber = (await provider.getBlockNumber()) + 1;
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+main();

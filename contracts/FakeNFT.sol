@@ -13,6 +13,6 @@ contract FakeNFT is ERC721 {
     function mint() public payable {
         require(msg.value == price, "Ether sent is incorrect");
         _mint(msg.sender, tokenId);
-        tokenId +=1;
+        tokenId += 1;
     }
 }

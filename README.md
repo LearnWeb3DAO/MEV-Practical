@@ -1,10 +1,8 @@
 # MEV Practical
 
-In this level we will learn how to mint an NFT using Flashbots
+In MEV Theory, we understood what MEV is, what Flashbots are, and some use cases of Flashbots. In this level we will learn how to mint an NFT using Flashbots. This is going to be a very simple use case designed to teach you how to use Flashbots, not necessarily make a profit. Finding opportunities where you can make profit using MEV is a hard problem and are typically not public information. Every Searcher is trying to do their best, and if they tell you exactly what strategies they're using, they are shooting themselves in the foot.
 
-
-Note this is going to be a very simple usecase to teach you how flashbots work but in real world Flashbots are used to do much more complex transactions like arbitrage.
-
+This tutorial is just meant to show you how you use Flashbots to send transactions in the first place, the rest is up to you!
 
 ## Build
 
@@ -44,7 +42,6 @@ npm install @flashbots/ethers-provider-bundle @openzeppelin/contracts dotenv
 
 Let's start off by creating a FakeNFT Contract. Under your contracts folder create a new file named `FakeNFT.sol` and add the following lines of code to it
 
-
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
@@ -65,6 +62,8 @@ contract FakeNFT is ERC721 {
     }
 }
 ```
+
+This is a pretty simple ERC-721 contract that allows minting an NFT for 0.01 ETH.
 
 Now let's replace the code present in `hardhat.config.js` with the following lines of code
 
@@ -88,8 +87,7 @@ module.exports = {
 
 ```
 
-Checkout that we are using `goerli` here which is another Ethereum testnet that flashbots work on
-
+Note that we are using `goerli` here which is an Ethereum testnet, similar to Rinkeby and Ropsten, but the only one supported by Flashbots. This is because Goerli Testnet actually runs Proof of Work, making MEV viable, whereas Rinkeby and Ropsten use Proof of Authority which just means certain organizations have the authority to mint new ETH and produce blocks as they wish. Rinkeby and Ropsten therefore have the advantage of being easier to test with and easier to get access to testnet ETH, but Goerli is the closest you can get to Mainnet.
 
 Now its time to set up some environment variables, create a new file `.env` under your root folder, and add the following lines of code to it. 
 
@@ -99,7 +97,7 @@ PRIVATE_KEY="YOUR-PRIVATE-KEY"
 ALCHEMY_WEBSOCKET_URL="ALCHEMY-WEBSOCKET-URL"
 ```
 
-To get your `ALCHEMY_API_KEY_URL` and `ALCHEMY_WEBSOCKET_URL` go to [alchemy](alchemy.com), log in and create a new app. Make sure you select `Goerli` under the Network tab
+To get your `ALCHEMY_API_KEY_URL` and `ALCHEMY_WEBSOCKET_URL` go to [Alchemy](alchemy.com), log in and create a new app. Make sure you select `Goerli` under the Network tab
 
 ![](https://i.imgur.com/l5H9Whh.png)
 
@@ -107,11 +105,9 @@ Now copy the`HTTP` url and paste it inplace of `ALCHEMY-API-KEY` and copy `WEBSO
 
 ![](https://i.imgur.com/jJJTWkT.png)
 
+Replace `YOUR-PRIVATE-KEY` with the private key of an account in which you have Goerli Ether, to get some Goerli ether try out [this faucet](https://goerlifaucet.com/)
 
-Replace `YOUR-PRIVATE-KEY` with the private key of an account in which you have Goerli ether, to get some Goerli ether try out [this faucet](https://goerlifaucet.com/)
-
-
-Now it's time to write some code that will help us interact with flashbots.
+Now it's time to write some code that will help us interact with Flashbots.
 
 Create a new file under `scripts` folder and name it `flashbots.js` and add the following lines of code to it
 
@@ -189,18 +185,15 @@ main();
 
 ```
 
-
 Now let's try to understand what's happening in these lines of code.
 
 In the initial lines of code, we deployed the `FakeNFT` contract which we wrote.
 
-
-After that we created an Alchemy WebSocket Provider, a signer and a flashbots provider. Note the reason why we created a WebSocket provider this time is because we want to create a socket to listen to every new block that comes in `Goerli` network.
+After that we created an Alchemy WebSocket Provider, a signer and a Flashbots provider. Note the reason why we created a WebSocket provider this time is because we want to create a socket to listen to every new block that comes in `Goerli` network. HTTP Providers, as we had been using previously, work on a request-response model, where a client sends a request to a server, and the server responds back. In the case of WebSockets, however, the client opens a connection with the WebSocket server once, and then the server continuously sends them updates as long as the connection remains open. Therefore the client does not need to send requests again and again.
 
 The reason to do that is that all miners in `Goerli` network are not flashbot miners. This means for some blocks it might happen that the bundle of transactions you send dont get included. 
 
 As a reason, we listen for each block and send a request in each block so that when the coinbase miner(miner of the current block) is a flashbots miner, our transaction gets included.
-
 
 
 ```javascript
@@ -295,9 +288,11 @@ After an address is printed on your terminal, go to [Goerli Etherscan](https://g
 
 
 
-Boom 🤯 We now learned how to use flashbots to mint a NFT
-
-but you can do so much more 👀
+Boom 🤯 We now learned how to use flashbots to mint a NFT but you can do so much more 👀
 
 
 GG 🥳
+
+## Readings
+- [Flashbots Docs](https://docs.flashbots.net/)
+- [Arbitrage bot using Flashbots](https://github.com/flashbots/simple-arbitrage)

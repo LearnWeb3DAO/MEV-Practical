@@ -102,8 +102,8 @@ To get your `ALCHEMY_API_KEY_URL` and `ALCHEMY_WEBSOCKET_URL` go to [Alchemy](al
 ![](https://i.imgur.com/l5H9Whh.png)
 
 Now copy the`HTTP` url and paste it inplace of `ALCHEMY-API-KEY` and copy `WEBSOCKETS` and paste it in place of `ALCHEMY-WEBSOCKET-URL`
+![test](https://user-images.githubusercontent.com/35871990/166679948-8e62c5ab-bfed-4d65-9fe2-595328fca964.png)
 
-![](https://i.imgur.com/jJJTWkT.png)
 
 Replace `YOUR-PRIVATE-KEY` with the private key of an account in which you have Goerli Ether, to get some Goerli ether try out [this faucet](https://goerlifaucet.com/)
 

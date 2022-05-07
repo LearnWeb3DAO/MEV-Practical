@@ -219,7 +219,7 @@ As a reason, we listen for each block and send a request in each block so that w
 
 After initializing the providers and signers, we use our provider to listen for the `block` event. Every time a `block` event is called, we print the block number and send a bundle of transactions to mint the NFT. Note the bundle we are sending may or may not get included in the current block depending on whether the coinbase miner is a flashbot miner or not.
 
-Now to create the transaction object. We specify the `chainId` which is `5` for Goerli, `type` which is `2` because we will use the `Post-London Upgrade` gas model which is `EIP-1559`. To refresh your memory on how this gas model works, check out the `Gas` module in Sophomore.
+Now to create the transaction object, we specify the `chainId` which is `5` for Goerli, `type` which is `2` because we will use the `Post-London Upgrade` gas model which is `EIP-1559`. To refresh your memory on how this gas model works, check out the `Gas` module in Sophomore.
 
 We specify `value` which is `0.01` because that's the amount for minting 1 NFT and the `to` address which is the address of `FakeNFT` contract.
 

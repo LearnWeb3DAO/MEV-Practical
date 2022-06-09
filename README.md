@@ -87,7 +87,7 @@ module.exports = {
 
 ```
 
-Note that we are using `goerli` here which is an Ethereum testnet, similar to Rinkeby and Ropsten, but the only one supported by Flashbots. This is because Goerli Testnet actually runs Proof of Work, making MEV viable, whereas Rinkeby and Ropsten use Proof of Authority which just means certain organizations have the authority to mint new ETH and produce blocks as they wish. Rinkeby and Ropsten therefore have the advantage of being easier to test with and easier to get access to testnet ETH, but Goerli is the closest you can get to Mainnet.
+Note that we are using `goerli` here which is an Ethereum testnet, similar to Rinkeby and Ropsten, but the only one supported by Flashbots.
 
 Now its time to set up some environment variables, create a new file `.env` under your root folder, and add the following lines of code to it. 
 

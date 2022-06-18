@@ -226,7 +226,7 @@ We specify `value` which is `0.01` because that's the amount for minting 1 NFT a
 Now for `data` we need to specify the function selector which is the first four bytes of the  Keccak-256 (SHA-3) hash of  the name  and the arguments of the function
 This will determine which function are we trying to call, in our case, it will be the mint function.
 
-Then we specify the `maxFeePerGas` and `maxPriorityFeePerGas` to be `3 GWEI` and `2 GWEI` respectively. Note the values I got here are from looking at the transactions which were mind previously in the network and what `Gas Fees` were they using.
+Then we specify the `maxFeePerGas` and `maxPriorityFeePerGas` to be `3 GWEI` and `2 GWEI` respectively. Note the values I got here are from looking at the transactions which were mined previously in the network and what `Gas Fees` were they using.
 
 also,
 `1 GWEI = 10*WEI = 10*10^8 = 10^9`

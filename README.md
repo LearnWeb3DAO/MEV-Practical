@@ -36,7 +36,7 @@ Now you have a hardhat project ready to go!
 
 Let's install a few more dependencies to help us further
 
-```bash=
+```bash
 npm install @flashbots/ethers-provider-bundle @openzeppelin/contracts dotenv
 ```
 

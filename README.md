@@ -97,7 +97,7 @@ PRIVATE_KEY="YOUR-PRIVATE-KEY"
 ALCHEMY_WEBSOCKET_URL="ALCHEMY-WEBSOCKET-URL"
 ```
 
-To get your `ALCHEMY_API_KEY_URL` and `ALCHEMY_WEBSOCKET_URL` go to [Alchemy](alchemy.com), log in and create a new app. Make sure you select `Goerli` under the Network tab
+To get your `ALCHEMY_API_KEY_URL` and `ALCHEMY_WEBSOCKET_URL` go to [Alchemy](https://www.alchemy.com/), log in and create a new app. Make sure you select `Goerli` under the Network tab
 
 ![](https://i.imgur.com/l5H9Whh.png)
 

@@ -71,7 +71,7 @@ Now let's replace the code present in `hardhat.config.js` with the following lin
 require("@nomiclabs/hardhat-waffle");
 require("dotenv").config({ path: ".env" });
 
-const ALCHEMY_API_KEY_URL = process.env.ALCHEMY_API_KEY_URL;
+const QUICKNODE_RPC_URL = process.env.QUICKNODE_RPC_URL;
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
@@ -79,7 +79,7 @@ module.exports = {
   solidity: "0.8.4",
   networks: {
     goerli: {
-      url: ALCHEMY_API_KEY_URL,
+      url: QUICKNODE_RPC_URL,
       accounts: [PRIVATE_KEY],
     },
   },
@@ -92,18 +92,16 @@ Note that we are using `goerli` here which is an Ethereum testnet, similar to Ri
 Now its time to set up some environment variables, create a new file `.env` under your root folder, and add the following lines of code to it. 
 
 ```
-ALCHEMY_API_KEY_URL="ALCHEMY-API-KEY-URL"
+QUICKNODE_RPC_URL="QUICKNODE_RPC_URL"
 PRIVATE_KEY="YOUR-PRIVATE-KEY"
-ALCHEMY_WEBSOCKET_URL="ALCHEMY-WEBSOCKET-URL"
+QUICKNODE_WS_URL="QUICKNODE_WS_URL"
 ```
 
-To get your `ALCHEMY_API_KEY_URL` and `ALCHEMY_WEBSOCKET_URL` go to [Alchemy](https://www.alchemy.com/), log in and create a new app. Make sure you select `Goerli` under the Network tab
+To get your `QUICKNODE_RPC_URL` and `QUICKNODE_WS_URL` go to [Quicknode](https://www.quicknode.com/?utm_source=learnweb3&utm_campaign=generic&utm_content=sign-up&utm_medium=learnweb3), sign in, and create a new endpoint. Select `Ethereum` and then `Goerli`, and create the endpoint in `Discover` mode to remain on the free tier.
 
 ![](https://i.imgur.com/l5H9Whh.png)
 
-Now copy the`HTTP` url and paste it inplace of `ALCHEMY-API-KEY` and copy `WEBSOCKETS` and paste it in place of `ALCHEMY-WEBSOCKET-URL`
-![test](https://user-images.githubusercontent.com/35871990/166679948-8e62c5ab-bfed-4d65-9fe2-595328fca964.png)
-
+Now copy the `HTTP Provider` url and paste it inplace of `QUICKNODE_RPC_URL` and copy `WSS Provider` and paste it in place of `QUICKNODE_WS_URL`.
 
 Replace `YOUR-PRIVATE-KEY` with the private key of an account in which you have Goerli Ether, to get some Goerli ether try out [this faucet](https://goerlifaucet.com/)
 
@@ -129,7 +127,7 @@ async function main() {
 
   // Create a Alchemy WebSocket Provider
   const provider = new ethers.providers.WebSocketProvider(
-    process.env.ALCHEMY_WEBSOCKET_URL,
+    process.env.QUICKNODE_WS_URL,
     "goerli"
   );
 
@@ -189,7 +187,7 @@ Now let's try to understand what's happening in these lines of code.
 
 In the initial lines of code, we deployed the `FakeNFT` contract which we wrote.
 
-After that we created an Alchemy WebSocket Provider, a signer and a Flashbots provider. Note the reason why we created a WebSocket provider this time is because we want to create a socket to listen to every new block that comes in `Goerli` network. HTTP Providers, as we had been using previously, work on a request-response model, where a client sends a request to a server, and the server responds back. In the case of WebSockets, however, the client opens a connection with the WebSocket server once, and then the server continuously sends them updates as long as the connection remains open. Therefore the client does not need to send requests again and again.
+After that we created an Quicknode WebSocket Provider, a signer and a Flashbots provider. Note the reason why we created a WebSocket provider this time is because we want to create a socket to listen to every new block that comes in `Goerli` network. HTTP Providers, as we had been using previously, work on a request-response model, where a client sends a request to a server, and the server responds back. In the case of WebSockets, however, the client opens a connection with the WebSocket server once, and then the server continuously sends them updates as long as the connection remains open. Therefore the client does not need to send requests again and again.
 
 The reason to do that is that all miners in `Goerli` network are not flashbot miners. This means for some blocks it might happen that the bundle of transactions you send dont get included. 
 
@@ -199,7 +197,7 @@ As a reason, we listen for each block and send a request in each block so that w
 ```javascript
 // Create a Alchemy WebSocket Provider
   const provider = new ethers.providers.WebSocketProvider(
-    process.env.ALCHEMY_WEBSOCKET_URL,
+    process.env.QUICKNODE_WS_URL,
     "goerli"
   );
 

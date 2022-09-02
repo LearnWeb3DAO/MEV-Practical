@@ -125,7 +125,7 @@ async function main() {
 
   console.log("Address of Fake NFT Contract:", FakeNFT.address);
 
-  // Create a Alchemy WebSocket Provider
+  // Create a Quicknode WebSocket Provider
   const provider = new ethers.providers.WebSocketProvider(
     process.env.QUICKNODE_WS_URL,
     "goerli"

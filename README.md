@@ -6,7 +6,7 @@ This tutorial is just meant to show you how you use Flashbots to send transactio
 
 ## Build
 
-Lets build an example on how to usee flashbots
+Lets build an example on how to use flashbots
 
 - To setup a Hardhat project, Open up a terminal and execute these commands
 
